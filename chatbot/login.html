@@ -1,0 +1,123 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="description" content="Login - Register Template">
+    <meta name="author" content="Lorenzo Angelino aka MrLolok">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <style>
+        body {
+            background-color: #303641;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div id="container-login">
+        <div id="title">
+            <i class="material-icons lock">description</i> Details
+        </div>
+
+        <form>
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">badge</i>
+                </div>
+                <input type="text" name="" id="NAME" placeholder="Say your Name" onclick="record()">
+            </div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">inventory</i>
+                </div>
+                <input type="text" name="" id="AGE" placeholder="Say your age" onclick="record2()">
+            </div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">face</i>
+                </div>
+                <input type="text" name="" id="GENDER" placeholder="Say your gender" onclick="record3()">
+            </div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">bloodtype</i>
+                </div>
+                <input type="text" name="" id="BGRP" placeholder="Say your bloodgroup" onclick="record4()">
+            </div>
+
+            <div class="clearfix"></div>
+
+        </form>
+
+        <div class="Log In">
+            <a href="chatbot/chatbot.html"><button id="register-link">Log In</button></a>
+        </div>
+    
+    <!-- Below is the script for voice recognition and conversion to text-->
+    <script>
+        function record() {
+            var recognition = new webkitSpeechRecognition();
+            recognition.lang = "en-GB";
+
+            recognition.onresult = function(event) {
+                // console.log(event);
+                document.getElementById('NAME').value = event.results[0][0].transcript;
+            }
+            recognition.start();
+
+        }
+    </script>
+
+    <script>
+        function record2() {
+            var recognition = new webkitSpeechRecognition();
+            recognition.lang = "en-GB";
+
+            recognition.onresult = function(event) {
+                // console.log(event);
+                document.getElementById('AGE').value = event.results[0][0].transcript;
+            }
+            recognition.start();
+
+        }
+    </script>
+
+    <script>
+        function record3() {
+            var recognition = new webkitSpeechRecognition();
+            recognition.lang = "en-GB";
+
+            recognition.onresult = function(event) {
+                // console.log(event);
+                document.getElementById('GENDER').value = event.results[0][0].transcript;
+            }
+            recognition.start();
+
+        }
+    </script>
+
+    <script>
+        function record4() {
+            var recognition = new webkitSpeechRecognition();
+            recognition.lang = "en-GB";
+
+            recognition.onresult = function(event) {
+                // console.log(event);
+                document.getElementById('BGRP').value = event.results[0][0].transcript;
+            }
+            recognition.start();
+
+        }
+    </script>
+
+
+
+</body>
+
+</html>

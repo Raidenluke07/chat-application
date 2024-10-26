@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="container-create-account">
+        <div id="title">
+            Create Account
+        </div>
+
+        <form id="register-form">
+            <div class="input">
+                <div class="input-addon">
+                    Name
+                </div>
+                <input type="text" name="name" id="name" placeholder="Name" required>
+            </div>
+
+            <div class="input">
+                <div class="input-addon">
+                    Gender
+                </div>
+                <input type="text" name="gender" id="gender" placeholder="Gender" required>
+            </div>
+
+            <div class="input">
+                <div class="input-addon">
+                    Age
+                </div>
+                <input type="text" name="age" id="age" placeholder="Age" required>
+            </div>
+
+            <div class="input">
+                <div class="input-addon">
+                    Blood Group
+                </div>
+                <input type="text" name="blood_group" id="blood_group" placeholder="Blood Group" required>
+            </div>
+
+            <div class="input">
+                <div class="input-addon">
+                    Phone Number
+                </div>
+                <input type="text" name="contact_no" id="contact_no" placeholder="Contact Number" required>
+            </div>
+
+            <div class="input">
+                <div class="input-addon">
+                Address
+                </div>
+                <input type="text" name="address" id="address" placeholder="Address" required>
+            </div>
+            
+            <div class="input">
+                <div class="input-addon">
+                    Aadhaar Card Number
+                </div>
+                <input type="text" name="aadhaar" id="aadhaar" placeholder="Aadhaar Card Number" required>
+            </div>
+
+            <!-- New Field for Live Photo -->
+            <div class="input">
+                <div class="input-addon">
+                    Photo
+                </div>
+                <button type="button" id="capture-live-photo">Capture Live Photo</button>
+                <canvas id="live-photo-canvas" style="display: none;"></canvas>
+                <input type="hidden" name="live-photo" id="live-photo">
+            </div>
+
+            <div class="upload-options">
+                <label for="gallery-upload">Upload from Gallery</label>
+                <input type="file" name="gallery-upload" id="gallery-upload" accept="image/*">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="register-button">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("capture-live-photo").addEventListener("click", function() {
+            // Access the device camera and capture live photo
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                var video = document.createElement("video");
+                var canvas = document.getElementById("live-photo-canvas");
+                var ctx = canvas.getContext("2d");
+
+                // Set video source and play
+                video.srcObject = stream;
+                video.play();
+
+                // Draw video frame on canvas
+                video.addEventListener("loadedmetadata", function() {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    
+                    // Convert canvas to data URL and set as value of hidden input
+                    var dataURL = canvas.toDataURL();
+                    document.getElementById("live-photo").value = dataURL;
+
+                    // Stop video stream
+                    stream.getTracks().forEach(function(track) {
+                        track.stop();
+                    });
+
+                    // Hide canvas
+                    canvas.style.display = "none";
+                });
+            })
+            .catch(function(err) {
+                console.error("Error accessing camera: ", err);
+            });
+        });
+
+        document.getElementById("register-form").addEventListener("submit", function(event) {
+            // Prevent default form submission
+            event.preventDefault();
+            
+            // Perform registration (You can add your registration logic here)
+
+            // Redirect to login page after registration
+            window.location.href = "login.html";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HEAL FIELD</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Arial Rounded MT Bold', sans-serif;
+      background-color: rgb(63, 106, 80);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column; /* Added to align items vertically */
+    }
+
+    .logo-container {
+      margin-bottom: 60px;
+      display:flex;
+      justify-content: center;
+      align-items: center; /* Adjust margin as needed */
+    }
+
+    .logo-image {
+      width: 300px;
+      height: 300px;/* Adjust image size as needed */
+    }
+
+    .chat-container {
+        width: 800px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+        animation: slideIn 0.5s ease;
+        border: 4px solid #0b8171;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .chat-header {
+        background-color: #208376;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        font-size: 36px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        position: relative;
+      }
+
+      /* Pseudo-element for chat header animation */
+      .chat-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        animation: headerAnimation 3s infinite alternate;
+      }
+
+      @keyframes headerAnimation {
+        from {
+          transform: scale(1.1);
+          opacity: 0.8;
+        }
+        to {
+          transform: scale(1.3);
+          opacity: 0.4;
+        }
+      }
+
+      .chat-messages {
+        padding: 20px;
+        max-height: 500px;
+        overflow-y: auto;
+      }
+      .message {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: flex-start;
+        opacity: 0;
+        animation: fadeIn 0.5s ease forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .message .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #119684;
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        margin-right: 15px;
+        animation: bounce 1s ease infinite alternate;
+      }
+      @keyframes bounce {
+        0% {
+          transform: translateY(-5px);
+        }
+        100% {
+          transform: translateY(5px);
+        }
+      }
+      .message .text {
+        background-color: #f2f2f2;
+        padding: 15px;
+        border-radius: 12px;
+        max-width: 80%;
+        font-size: 22px;
+        animation: slideFromLeft 0.5s ease;
+      }
+      @keyframes slideFromLeft {
+        from {
+          transform: translateX(-50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      .message .tick {
+        font-size: 14px;
+        color: #ccc;
+        margin-left: 5px;
+      }
+
+    .message.user {
+      justify-content: flex-end;
+    }
+
+    .message.user .text {
+      background-color: #e3c290;
+      align-self: flex-end;
+    }
+      .chat-input {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-top: 1px solid #ddd;
+      }
+      .chat-input input[type="text"] {
+        flex: 1;
+        padding: 15px;
+        border: none;
+        border-radius: 12px;
+        outline: none;
+        font-size: 22px;
+        background-color: #f9f9f9;
+      }
+      .chat-input button {
+        background-color:  #11a28f;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 10px 24px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 18px;
+      }
+      .chat-input button:hover {
+        background-color:  #11a28f;
+      }
+      .speech-icon,
+      .speech-recognition-icon {
+        background-color:  #11a28f;
+        color: #fff;
+        padding: 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+
+    /* Rest of your CSS styles */
+
+  </style>
+</head>
+<body>
+
+<div class="logo-container">
+  <img src=C:\Users\Raiden\Downloads\campanylogo.jpeg" alt="logo" class="logo-image">
+</div>
+
+<div class="chat-container">
+  <div class="chat-header">HEAL FIELD</div>
+
+
+  <div class="chat-messages" id="chatbox">
+    <div class="message">
+      <div class="avatar">BOT</div>
+      <div class="text">WELCOME YOU TO HEAL FIELD... <span class="tick">&#10003;&#10003;</span></div>
+    </div>
+  </div>
+  <div class="chat-input">
+    <input id="textInput" type="text" placeholder="Type your message...">
+    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+    <div class="speech-recognition-icon" onclick="startSpeechRecognition()"><i class="fas fa-microphone"></i></div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  // Your JavaScript code here
+   // Function to handle sending messages
+   function sendMessage() {
+    var rawText = $("#textInput").val();
+    var userHtml = `
+      <div class="message user">
+        <div class="avatar">me</div>
+        <div class="text">${rawText} <span class="tick">&#10003;&#10003;</span></div>
+        <div class="time">${getCurrentTime()}</div>
+      </div>`;
+    $("#textInput").val("");
+    $("#chatbox").append(userHtml);
+    $(".chat-messages").animate({ scrollTop: $('.chat-messages')[0].scrollHeight}, 1000);
+    // Send the user's message to the server for processing
+    $.get("/get", { msg: rawText }).done(function(data) {
+      var botHtml = `
+        <div class="message">
+          <div class="avatar">Bot</div>
+          <div class="text">${data} <span class="tick">&#10003;&#10003;</span></div>
+          <div class="time">${getCurrentTime()}</div>
+        </div>`;
+      $("#chatbox").append(botHtml);
+      $(".chat-messages").animate({ scrollTop: $('.chat-messages')[0].scrollHeight}, 1000);
+    });
+  }
+
+  // Function to get current time
+  function getCurrentTime() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var timeString = hours + ':' + minutes + ' ' + ampm;
+    return timeString;
+  }
+
+  // Function to start speech recognition
+  function startSpeechRecognition() {
+    var recognition = new webkitSpeechRecognition();
+    recognition.onresult = function(event) {
+      var result = event.results[0][0].transcript;
+      $("#textInput").val(result);
+    };
+    recognition.start();
+  }
+
+  // Event listener for pressing Enter key
+  $("#textInput").keypress(function(e) {
+    if (e.which == 13) {
+      sendMessage();
+    }
+  });
+</script>
+
+</body>
+</html>
